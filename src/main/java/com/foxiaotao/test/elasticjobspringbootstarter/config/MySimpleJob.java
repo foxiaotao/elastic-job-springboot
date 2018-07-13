@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-@ElasticSimpleJob(cron = "* * * * * ?")
+@ElasticSimpleJob(cron="* * * * * ?",jobName="test123",shardingTotalCount=2,jobParameter="测试参数",shardingItemParameters="0=A,1=B")
 public class MySimpleJob implements SimpleJob {
 
     @Override
