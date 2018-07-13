@@ -1,7 +1,0 @@
-#server:
-#  port: 8081
-#
-#spring:
-#
-#
-#elaticjob.zookeeper.server-lists=192.168.6.27:55377
