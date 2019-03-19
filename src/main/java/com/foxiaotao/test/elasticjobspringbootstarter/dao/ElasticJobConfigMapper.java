@@ -3,8 +3,12 @@ package com.foxiaotao.test.elasticjobspringbootstarter.dao;
 import com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig;
 import com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfigExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+
+@Mapper
 public interface ElasticJobConfigMapper {
     int countByExample(ElasticJobConfigExample example);
 
