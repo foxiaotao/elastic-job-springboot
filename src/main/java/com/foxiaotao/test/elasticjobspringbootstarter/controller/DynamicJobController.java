@@ -5,12 +5,10 @@ import com.dangdang.ddframe.job.config.simple.SimpleJobConfiguration;
 import com.dangdang.ddframe.job.lite.api.JobScheduler;
 import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
-import com.foxiaotao.test.elasticjobspringbootstarter.config.MySimpleJob;
+import com.foxiaotao.test.elasticjobspringbootstarter.config.job.dynamic.DynamicSimpleJob;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sxt.com.simon.password.des.SimonPassword;
 
 import javax.annotation.Resource;
 import java.util.UUID;
@@ -33,7 +31,7 @@ public class DynamicJobController {
         String jobName = UUID.randomUUID().toString() + "-test";
         JobCoreConfiguration jobCoreConfiguration = JobCoreConfiguration.newBuilder(jobName, "* * * * * ?", shardingTotalCount).shardingItemParameters("0=A,1=B").build();
 
-        SimpleJobConfiguration simpleJobConfiguration = new SimpleJobConfiguration(jobCoreConfiguration, MySimpleJob.class.getCanonicalName());
+        SimpleJobConfiguration simpleJobConfiguration = new SimpleJobConfiguration(jobCoreConfiguration, DynamicSimpleJob.class.getCanonicalName());
 
         JobScheduler jobScheduler = new JobScheduler(zookeeperRegistryCenter, LiteJobConfiguration.newBuilder(simpleJobConfiguration).build());
         try {

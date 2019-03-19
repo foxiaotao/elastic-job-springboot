@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ZKConfigRegister {
 
+
     @Bean(initMethod = "init", name = "zookeeperRegistryCenter")
     public ZookeeperRegistryCenter zookeeperRegistryCenter(@Value("${elaticjob.zookeeper.server-lists}")final String zkServerList, @Value("${elaticjob.zookeeper.namespace}") final String namespace) {
         return new ZookeeperRegistryCenter(new ZookeeperConfiguration(zkServerList, namespace));
