@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foxiaotao.test.elasticjobspringbootstarter.dao.ElasticJobConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="cron" property="cron" jdbcType="VARCHAR" />
+    <result column="sharding_total_count" property="shardingTotalCount" jdbcType="INTEGER" />
+    <result column="sharding_item_parameters" property="shardingItemParameters" jdbcType="VARCHAR" />
+    <result column="job_parameter" property="jobParameter" jdbcType="VARCHAR" />
+    <result column="failover" property="failover" jdbcType="CHAR" />
+    <result column="misfire" property="misfire" jdbcType="CHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="job_class" property="jobClass" jdbcType="VARCHAR" />
+    <result column="streaming_process" property="streamingProcess" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig" extends="BaseResultMap" >
+    <result column="job_config" property="jobConfig" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, job_name, cron, sharding_total_count, sharding_item_parameters, job_parameter, 
+    failover, misfire, description, job_class, streaming_process
+  </sql>
+  <sql id="Blob_Column_List" >
+    job_config
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from elastic_job_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from elastic_job_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from elastic_job_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from elastic_job_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfigExample" >
+    delete from elastic_job_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig" >
+    insert into elastic_job_config (id, job_name, cron, 
+      sharding_total_count, sharding_item_parameters, 
+      job_parameter, failover, misfire, 
+      description, job_class, streaming_process, 
+      job_config)
+    values (#{id,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{cron,jdbcType=VARCHAR}, 
+      #{shardingTotalCount,jdbcType=INTEGER}, #{shardingItemParameters,jdbcType=VARCHAR}, 
+      #{jobParameter,jdbcType=VARCHAR}, #{failover,jdbcType=CHAR}, #{misfire,jdbcType=CHAR}, 
+      #{description,jdbcType=VARCHAR}, #{jobClass,jdbcType=VARCHAR}, #{streamingProcess,jdbcType=CHAR}, 
+      #{jobConfig,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig" >
+    insert into elastic_job_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jobName != null" >
+        job_name,
+      </if>
+      <if test="cron != null" >
+        cron,
+      </if>
+      <if test="shardingTotalCount != null" >
+        sharding_total_count,
+      </if>
+      <if test="shardingItemParameters != null" >
+        sharding_item_parameters,
+      </if>
+      <if test="jobParameter != null" >
+        job_parameter,
+      </if>
+      <if test="failover != null" >
+        failover,
+      </if>
+      <if test="misfire != null" >
+        misfire,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="jobClass != null" >
+        job_class,
+      </if>
+      <if test="streamingProcess != null" >
+        streaming_process,
+      </if>
+      <if test="jobConfig != null" >
+        job_config,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null" >
+        #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="shardingTotalCount != null" >
+        #{shardingTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="shardingItemParameters != null" >
+        #{shardingItemParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="jobParameter != null" >
+        #{jobParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="failover != null" >
+        #{failover,jdbcType=CHAR},
+      </if>
+      <if test="misfire != null" >
+        #{misfire,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="jobClass != null" >
+        #{jobClass,jdbcType=VARCHAR},
+      </if>
+      <if test="streamingProcess != null" >
+        #{streamingProcess,jdbcType=CHAR},
+      </if>
+      <if test="jobConfig != null" >
+        #{jobConfig,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfigExample" resultType="java.lang.Integer" >
+    select count(*) from elastic_job_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update elastic_job_config
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobName != null" >
+        job_name = #{record.jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cron != null" >
+        cron = #{record.cron,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shardingTotalCount != null" >
+        sharding_total_count = #{record.shardingTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.shardingItemParameters != null" >
+        sharding_item_parameters = #{record.shardingItemParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobParameter != null" >
+        job_parameter = #{record.jobParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.failover != null" >
+        failover = #{record.failover,jdbcType=CHAR},
+      </if>
+      <if test="record.misfire != null" >
+        misfire = #{record.misfire,jdbcType=CHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobClass != null" >
+        job_class = #{record.jobClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.streamingProcess != null" >
+        streaming_process = #{record.streamingProcess,jdbcType=CHAR},
+      </if>
+      <if test="record.jobConfig != null" >
+        job_config = #{record.jobConfig,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update elastic_job_config
+    set id = #{record.id,jdbcType=INTEGER},
+      job_name = #{record.jobName,jdbcType=VARCHAR},
+      cron = #{record.cron,jdbcType=VARCHAR},
+      sharding_total_count = #{record.shardingTotalCount,jdbcType=INTEGER},
+      sharding_item_parameters = #{record.shardingItemParameters,jdbcType=VARCHAR},
+      job_parameter = #{record.jobParameter,jdbcType=VARCHAR},
+      failover = #{record.failover,jdbcType=CHAR},
+      misfire = #{record.misfire,jdbcType=CHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      job_class = #{record.jobClass,jdbcType=VARCHAR},
+      streaming_process = #{record.streamingProcess,jdbcType=CHAR},
+      job_config = #{record.jobConfig,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update elastic_job_config
+    set id = #{record.id,jdbcType=INTEGER},
+      job_name = #{record.jobName,jdbcType=VARCHAR},
+      cron = #{record.cron,jdbcType=VARCHAR},
+      sharding_total_count = #{record.shardingTotalCount,jdbcType=INTEGER},
+      sharding_item_parameters = #{record.shardingItemParameters,jdbcType=VARCHAR},
+      job_parameter = #{record.jobParameter,jdbcType=VARCHAR},
+      failover = #{record.failover,jdbcType=CHAR},
+      misfire = #{record.misfire,jdbcType=CHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      job_class = #{record.jobClass,jdbcType=VARCHAR},
+      streaming_process = #{record.streamingProcess,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig" >
+    update elastic_job_config
+    <set >
+      <if test="jobName != null" >
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null" >
+        cron = #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="shardingTotalCount != null" >
+        sharding_total_count = #{shardingTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="shardingItemParameters != null" >
+        sharding_item_parameters = #{shardingItemParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="jobParameter != null" >
+        job_parameter = #{jobParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="failover != null" >
+        failover = #{failover,jdbcType=CHAR},
+      </if>
+      <if test="misfire != null" >
+        misfire = #{misfire,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="jobClass != null" >
+        job_class = #{jobClass,jdbcType=VARCHAR},
+      </if>
+      <if test="streamingProcess != null" >
+        streaming_process = #{streamingProcess,jdbcType=CHAR},
+      </if>
+      <if test="jobConfig != null" >
+        job_config = #{jobConfig,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig" >
+    update elastic_job_config
+    set job_name = #{jobName,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
+      sharding_total_count = #{shardingTotalCount,jdbcType=INTEGER},
+      sharding_item_parameters = #{shardingItemParameters,jdbcType=VARCHAR},
+      job_parameter = #{jobParameter,jdbcType=VARCHAR},
+      failover = #{failover,jdbcType=CHAR},
+      misfire = #{misfire,jdbcType=CHAR},
+      description = #{description,jdbcType=VARCHAR},
+      job_class = #{jobClass,jdbcType=VARCHAR},
+      streaming_process = #{streamingProcess,jdbcType=CHAR},
+      job_config = #{jobConfig,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foxiaotao.test.elasticjobspringbootstarter.entity.ElasticJobConfig" >
+    update elastic_job_config
+    set job_name = #{jobName,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
+      sharding_total_count = #{shardingTotalCount,jdbcType=INTEGER},
+      sharding_item_parameters = #{shardingItemParameters,jdbcType=VARCHAR},
+      job_parameter = #{jobParameter,jdbcType=VARCHAR},
+      failover = #{failover,jdbcType=CHAR},
+      misfire = #{misfire,jdbcType=CHAR},
+      description = #{description,jdbcType=VARCHAR},
+      job_class = #{jobClass,jdbcType=VARCHAR},
+      streaming_process = #{streamingProcess,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
